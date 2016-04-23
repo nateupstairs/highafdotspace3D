@@ -4,6 +4,7 @@
   "description": "",
   "main": "router.js",
   "scripts": {
+    "start": "node router.js",
     "build:js": "browserify ./app/js/bootstrapApp.js -o ./public/script.js -d -t [ babelify --presets [ es2015 stage-0 ] ]",
     "build:css": "node-sass ./app/css/styles.scss -o ./public",
     "build": "npm run build:js && npm run build:css",
