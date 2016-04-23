@@ -7,6 +7,7 @@ export class Listener {
   constructor() {
     window.addEventListener('message', this.dispatch, false)
     DEBUG.trigger = this.triggerEvent
+    window.parent.postMessage('loaded', '*')
   }
 
   dispatch(data) {
