@@ -9,6 +9,6 @@ require('http').createServer(function(request, response) {
       response.end()
     }
   })
-}).listen(3000 || process.env.PORT)
+}).listen(process.env.PORT || 3000)
 
 console.log("> server up")
