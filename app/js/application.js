@@ -11,6 +11,7 @@ async function start() {
   var listener = new Listener()
   var engine = new Engine()
   var ship = new Ship(assets)
+  listener.register(ship)
 
   engine.camera.position.x = 1000
   engine.camera.up = new THREE.Vector3(0, 1, 0)

@@ -5,19 +5,24 @@
 export class Listener {
 
   constructor() {
-    window.addEventListener('message', this.dispatch, false)
+    this.registrations = []
+    window.addEventListener('message', this.dispatch.bind(this), false)
     DEBUG.trigger = this.triggerEvent
     window.parent.postMessage('loaded', '*')
   }
 
   dispatch(data) {
-    console.log('GOT DATA')
-    console.log(data)
+    this.registrations.forEach(r => {
+      r.feedEvent(data)
+    })
   }
 
-
   triggerEvent(data) {
-    window.postMessage({testing: true}, '*')
+    window.postMessage(data, '*')
+  }
+
+  register(model) {
+    this.registrations.push(model)
   }
 
 }

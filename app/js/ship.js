@@ -38,4 +38,9 @@ export class Ship {
     this.launched = this.time
   }
 
+  feedEvent(data) {
+    console.log('EVENT TEST!')
+    console.log(data)
+  }
+
 }
