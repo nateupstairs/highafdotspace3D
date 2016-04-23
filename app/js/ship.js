@@ -6,22 +6,25 @@ var easing = require('./easing')
 
 export class Ship {
 
-  constructor(params) {
-    this.object
+  constructor(assets) {
+    this.assets = assets
+    this.object = new THREE.Object3D()
     this.time = 0
     this.launched = false
   }
 
   addObject() {
-    let geo = new THREE.BoxGeometry(20, 20, 20)
-    let material = new THREE.MeshBasicMaterial({
-      color: 0xff0000,
-      wireframe: true
-    })
-    let mesh = new THREE.Mesh(geo, material)
+    let meshGroup = this.assets.meshes['deltaIV_v01']
 
-    this.object = new THREE.Object3D()
-    this.object.add(mesh)
+    meshGroup.children.forEach(m => {
+      let material = new THREE.MeshBasicMaterial({
+        color: 0xff0000,
+        wireframe: true
+      })
+      let mesh = new THREE.Mesh(m.geometry, material)
+
+      this.object.add(mesh)
+    })
   }
 
   update(delta) {
