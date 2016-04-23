@@ -5,7 +5,7 @@
 export class Listener {
 
   constructor() {
-    window.addEventListener('feed-event', this.dispatch)
+    window.addEventListener('message', this.dispatch, false)
     DEBUG.trigger = this.triggerEvent
   }
 
@@ -16,9 +16,7 @@ export class Listener {
 
 
   triggerEvent(data) {
-    window.dispatchEvent(new CustomEvent('feed-event', {
-      detail: data
-    }))
+    window.postMessage({testing: true}, '*')
   }
 
 }
