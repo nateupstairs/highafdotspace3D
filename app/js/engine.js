@@ -61,9 +61,12 @@ export class Engine {
     this.entities.push(entity)
   }
 
-  updateChildren() {
+  updateChildren(delta) {
     this.updateList.forEach(ul => {
-      ul.update()
+      ul.update(delta)
+    })
+    this.entities.forEach(e => {
+      e.update(delta)
     })
   }
 
@@ -77,9 +80,10 @@ export class Engine {
 
   render() {
     let self = this
+    let delta = this.clock.getDelta()
 
     this.stats.begin()
-    this.updateChildren()
+    this.updateChildren(delta)
     this.renderer.render(this.scene, this.camera)
     this.stats.end()
 

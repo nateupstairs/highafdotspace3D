@@ -5,6 +5,8 @@ var engine = new Engine()
 var ship = new Ship()
 
 engine.camera.position.x = 100
-engine.camera.up = new THREE.Vector3(0, 0, 1)
+engine.camera.up = new THREE.Vector3(0, 1, 0)
 engine.camera.lookAt(new THREE.Vector3(0, 0, 0))
 engine.addEntity(0, ship)
+
+DEBUG.ship = ship

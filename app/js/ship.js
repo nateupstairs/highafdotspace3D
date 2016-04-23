@@ -2,10 +2,14 @@
  * Ship
  */
 
+var easing = require('./easing')
+
 export class Ship {
 
   constructor(params) {
     this.object
+    this.time = 0
+    this.launched = false
   }
 
   addObject() {
@@ -18,6 +22,17 @@ export class Ship {
 
     this.object = new THREE.Object3D()
     this.object.add(mesh)
+  }
+
+  update(delta) {
+    this.time += delta
+    if (this.launched) {
+      this.object.position.setY(easing.easeInOutCubic(this.time - this.launched))
+    }
+  }
+
+  launch() {
+    this.launched = this.time
   }
 
 }
