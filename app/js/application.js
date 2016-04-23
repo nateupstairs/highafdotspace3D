@@ -1,12 +1,14 @@
 import {Engine as Engine} from './engine'
 import {Ship as Ship} from './ship'
 import {Loader as Loader} from './loader'
+import {Listener as Listener} from './listener'
 
 async function start() {
   var loader = new Loader()
   await loader.loadAll()
   let assets = loader.assets
 
+  var listener = new Listener()
   var engine = new Engine()
   var ship = new Ship(assets)
 
