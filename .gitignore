@@ -29,6 +29,7 @@ node_modules
 
 .env
 .DS_Store
+.idea
 
 public/styles.css
 public/script.js
