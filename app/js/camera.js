@@ -43,6 +43,10 @@ export class Camera {
     if (this.startPos) {
       // this.startPos has the originating camera location
       // this.positions[this.target] has target position/lookat
+      var diff = this.positions[this.target].clone().sub(this.startPos);
+      var diffMult = diff.multiplyScalar(this.progress);
+      var camPosition = this.startPos.clone().add(diffMult);
+
       // set camera position / lookat to match
     }
   }
