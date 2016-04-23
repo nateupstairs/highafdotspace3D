@@ -5,12 +5,20 @@
 export class Listener {
 
   constructor() {
-    document.getElementById('listener').addEventListener('feed-event', dispatch)
+    window.addEventListener('feed-event', this.dispatch)
+    DEBUG.trigger = this.triggerEvent
   }
 
   dispatch(data) {
     console.log('GOT DATA')
     console.log(data)
+  }
+
+
+  triggerEvent(data) {
+    window.dispatchEvent(new CustomEvent('feed-event', {
+      detail: data
+    }))
   }
 
 }
