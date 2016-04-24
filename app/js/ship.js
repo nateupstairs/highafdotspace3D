@@ -17,13 +17,32 @@ export class Ship {
   }
 
   addObject() {
-    let meshGroup = this.assets.meshes['deltaIV_v01']
+    let meshGroup = this.assets.meshes['deltaIV_v02']
 
     this.shipMeshes = new THREE.Object3D()
     meshGroup.children.forEach(m => {
-      let material = new THREE.MeshPhongMaterial({
-        color: 0xffffff
-      })
+
+      let matAttrs = {
+        color: 0xeedefe,
+        shininess: 20
+      }
+
+      // console.log(m.name)
+
+      if (m.name.indexOf('texA') !== -1) {
+        matAttrs.map = this.assets.textures['textures/texA']
+      }
+      else if (m.name.indexOf('orange') !== -1){
+        matAttrs.color = 0xea8800
+        matAttrs.shininess = 5
+      }
+      else if (m.name.indexOf('silver') !== -1){
+        matAttrs.color = 0xa8b0b9
+        matAttrs.shininess = 70
+      }
+
+      let material = new THREE.MeshPhongMaterial(matAttrs)
+
       let mesh = new THREE.Mesh(m.geometry, material)
 
       this.shipMeshes.add(mesh)
@@ -191,10 +210,10 @@ export class Ship {
   feedEvent(data) {
     let e = data.data.eventName
 
-    if (e == 'launch') {
+    if (e == 'M-12') {
       this.launch()
     }
-    if (e == 'unlaunch') {
+    if (e == 'reset') {
       this.unlaunch()
     }
   }

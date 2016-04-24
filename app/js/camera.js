@@ -13,7 +13,7 @@ export class Camera {
     this.time = 0
     this.animationTime = 2
     this.progress = 1
-    this.lookAt = new THREE.Vector3(0, 0, 0)
+    this.lookAt = new THREE.Vector3(0, 220, 0)
     this.positions = {
       'M-1': {
         position: new THREE.Vector3(0, 800, -150),
@@ -50,7 +50,19 @@ export class Camera {
       'M-9': {
         position: new THREE.Vector3(0, 50, -100),
         lookAt: new THREE.Vector3(0, 20, 0)
-      }
+      },
+      'final-1': {
+        position: new THREE.Vector3(12, -10, 215),
+        lookAt: new THREE.Vector3(-55, 208, -57.6)
+      },
+      'final-2': {
+        position: new THREE.Vector3(430, 350, 90),
+        lookAt: new THREE.Vector3(-45, 335, 15)
+      },
+      'final-3': {
+        position: new THREE.Vector3(110, 722, 4),
+        lookAt: new THREE.Vector3(-50, 408, 60)
+      },
     }
     this.target = 'M-1'
     this.resetMove = false
@@ -104,7 +116,8 @@ export class Camera {
   enableOrbitControls() {
     if (typeof(this.controls) !== 'undefined') {
       this.controls.deviceOrient.disconnect()
-      this.controls.orbit.enabled = true;
+      this.controls.orbit.target = this.lookAt
+      this.controls.orbit.enabled = true
     }
   }
 
@@ -131,13 +144,13 @@ export class Camera {
     if (this.controls.deviceOrient.enabled) {
       this.controls.deviceOrient.update()
     }
-    else if (this.controls.orbit.enabled) {
+    if (this.controls.orbit.enabled) {
       this.controls.orbit.update()
     }
-    else if (this.progress < 1) {
+    if (this.progress < 1) {
       this.updateCameraPosition()
     }
-
+    
   }
 
 }

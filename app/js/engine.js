@@ -39,7 +39,7 @@ export class Engine {
 
 
     this.renderer = new THREE.WebGLRenderer({
-      antialias: false
+      antialias: true
     })
     this.renderer.setClearColor(0x000000, true);
     this.setSize()
@@ -59,16 +59,15 @@ export class Engine {
     this.controls.orbit.rotateSpeed = 0.2;
     // this.controls.orbit.keyPanSpeed = 2;
     this.controls.orbit.zoomSpeed = 0.2;
-    this.controls.orbit.noPan = true;
+    // this.controls.orbit.noPan = true;
     //this.controls.noZoom = true;
     this.controls.orbit.minDistance = 80;
     this.controls.orbit.maxDistance = 2000;
 
     // both angle are measured from top in radians (~6.3 in a full circle)
-    this.controls.orbit.minPolarAngle = (Math.PI*0.2);
-    this.controls.orbit.maxPolarAngle = (Math.PI*0.5) + 0.1;
-    // this.controls.orbit.minAzimuthAngle = -1; // radians
-    // this.controls.orbit.maxAzimuthAngle = 1;
+    // this.controls.orbit.minPolarAngle = (Math.PI*0.2);
+    // this.controls.orbit.maxPolarAngle = (Math.PI*0.5) + 0.1;
+
 
     document.body.appendChild(this.renderer.domElement)
     this.stats = new Stats()
