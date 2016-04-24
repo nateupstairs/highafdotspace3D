@@ -10,8 +10,15 @@ export class Loader {
       textures: {}
     }
     this.assetList = {
-      meshes: ['deltaIV_v02.json', 'launchpad_v01.json'],
-      textures: ['smokeparticle.png', 'textures/sphere.png', 'textures/texA.png']
+      meshes: [
+        'deltaIV_v02.json',
+        'launchpad_v01.json'
+      ],
+      textures: [
+        'smokeparticle.png',
+        'textures/sphere.png',
+        'textures/texA.png'
+      ]
     }
     this.baseUrl = './assets/'
     this.loadAll()

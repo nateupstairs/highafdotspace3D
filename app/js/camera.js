@@ -11,7 +11,8 @@ export class Camera {
     this.camera = camera
     this.controls = controls
     this.time = 0
-    this.animationTime = 2
+    this.defaultAnimationTime = 2
+    this.animationTime = this.defaultAnimationTime
     this.progress = 1
     this.lookAt = new THREE.Vector3(0, 220, 0)
     this.positions = {
@@ -53,20 +54,22 @@ export class Camera {
       },
       'F-1': {
         position: new THREE.Vector3(12, -10, 215),
-        lookAt: new THREE.Vector3(-55, 208, -57.6)
+        lookAt: new THREE.Vector3(-55, 208, -57.6),
+        instant: true
       },
       'F-2': {
         position: new THREE.Vector3(430, 350, 90),
-        lookAt: new THREE.Vector3(-45, 335, 15)
+        lookAt: new THREE.Vector3(-45, 335, 15),
+        instant: true
       },
       'F-3': {
-        position: new THREE.Vector3(110, 722, 4),
-        lookAt: new THREE.Vector3(-50, 408, 60)
+        position: new THREE.Vector3(90, 710, -20),
+        lookAt: new THREE.Vector3(-108, 247, 109),
+        instant: true
       },
     }
     this.target = 'M-1'
     this.resetMove = false
-    this.controlsConnected = false
     this.startPos = {
       position: new THREE.Vector3(1000, 0, 0),
       lookAt: new THREE.Vector3(0, 0, 0)
@@ -76,10 +79,17 @@ export class Camera {
 
   feedEvent(data) {
     let e = data.data.eventName
+    let position = this.positions[e]
 
-    if (this.positions[e]) {
-      this.target = e
-      this.resetMove = true
+    if (position) {
+      if (position.instant) {
+        this.camera.position.copy(position.position)
+        this.setCameraLookAt(position.lookAt)
+      }
+      else {
+        this.target = e
+        this.resetMove = true
+      }
     }
     if (e == 'enable-deviceorient') {
       this.enableDeviceOrient()
@@ -90,15 +100,17 @@ export class Camera {
     if (e == 'disable-controls') {
       this.disableControls()
     }
-    if (e == 'toggle-controls') {
-      if(!this.controlsConnected) {
-        this.enableControls()
-        this.controlsConnected = true
-      }
-      else {
-        this.disableControls()
-        this.controlsConnected = false
-      }
+  }
+
+  setCameraLookAt(lookAt) {
+    if (this.controls.orbit.enabled) {
+      this.controls.orbit.target = lookAt
+    }
+    else if (this.controls.deviceOrient.enabled) {
+      this.controls.deviceOrient.target = lookAt
+    }
+    else {
+      this.camera.lookAt(lookAt)
     }
   }
 
@@ -119,7 +131,7 @@ export class Camera {
 
   enableDeviceOrient() {
     if (typeof(this.controls) !== 'undefined') {
-      this.controls.orbit.enabled = false;
+      this.controls.orbit.enabled = false
       this.controls.deviceOrient.connect()
     }
   }
@@ -134,7 +146,7 @@ export class Camera {
 
   disableControls() {
     if (typeof(this.controls) !== 'undefined') {
-      this.controls.orbit.enabled = false;
+      this.controls.orbit.enabled = false
       this.controls.deviceOrient.disconnect()
     }
   }
@@ -151,7 +163,6 @@ export class Camera {
     }
     this.progress += delta / this.animationTime
 
-
     if (this.controls.deviceOrient.enabled) {
       this.controls.deviceOrient.update()
     }
@@ -161,7 +172,6 @@ export class Camera {
     if (this.progress < 1) {
       this.updateCameraPosition()
     }
-    
   }
 
 }

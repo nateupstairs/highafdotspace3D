@@ -1,1 +1,3 @@
 ./build
+./public
+./app/js/easing.js
