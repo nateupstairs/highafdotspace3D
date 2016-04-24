@@ -150,6 +150,9 @@ export class Ship {
     this.exhaustParticles.addEmitter(this.flameLeft)
     this.exhaustParticles.addEmitter(this.flameRight)
     this.object.add(this.exhaustParticles.mesh)
+    this.exhaustParticles.emitters.forEach(e => {
+      e.activeMultiplier = 0
+    })
     this.enabled = true
   }
 
@@ -159,7 +162,6 @@ export class Ship {
       if (this.launched) {
         let yPos = easing.easeOutCubic(this.time - this.launched)
 
-        this.emitter.particleCount = 1000
         this.shipMeshes.position.setY(yPos)
         this.exhaustParticles.mesh.position.y = yPos
       }
@@ -169,6 +171,9 @@ export class Ship {
 
   launch() {
     this.launched = this.time
+    this.exhaustParticles.emitters.forEach(e => {
+      e.activeMultiplier = 1
+    })
   }
 
   feedEvent(data) {
