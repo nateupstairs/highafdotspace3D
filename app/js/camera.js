@@ -125,8 +125,10 @@ export class Camera {
     let lookAtPosition = this.startPos.lookAt.clone().add(lookAtDiffMult)
 
     this.camera.position.copy(camPosition)
+
     this.lookAt.copy(lookAtPosition)
     this.camera.lookAt(this.lookAt)
+
   }
 
   enableDeviceOrient() {
@@ -141,6 +143,12 @@ export class Camera {
       this.controls.deviceOrient.disconnect()
       this.controls.orbit.target = this.lookAt
       this.controls.orbit.enabled = true
+    }
+  }
+
+  disableOrbitControls() {
+    if (typeof(this.controls) !== 'undefined') {
+      this.controls.orbit.enabled = false
     }
   }
 
@@ -163,15 +171,23 @@ export class Camera {
     }
     this.progress += delta / this.animationTime
 
-    if (this.controls.deviceOrient.enabled) {
-      this.controls.deviceOrient.update()
-    }
-    if (this.controls.orbit.enabled) {
-      this.controls.orbit.update()
-    }
+
     if (this.progress < 1) {
       this.updateCameraPosition()
     }
+    if (this.controls.deviceOrient.enabled) {
+      this.controls.orbit.target = this.lookAt.clone()
+      this.controls.deviceOrient.update()
+    }
+    else if (this.controls.orbit.enabled) {
+      this.controls.orbit.update()
+    }
+
+
+
+
+
+
   }
 
 }
