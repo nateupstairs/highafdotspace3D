@@ -76,10 +76,6 @@ export class Camera {
     }
   }
 
-  setDeviceOrient(value) {
-    this.controls.enabled = value
-  }
-
   updateCameraPosition() {
     let progress = easing.easeInOutCubic(this.progress)
     let target = this.positions[this.target]
@@ -96,13 +92,13 @@ export class Camera {
   }
 
   enableControls() {
-    if (this.controls.enabled) {
+    if (typeof(this.controls) !== 'undefined') {
       this.controls.connect()
     }
   }
 
   disableControls() {
-    if (this.controls.enabled) {
+    if (typeof(this.controls) !== 'undefined') {
       this.controls.disconnect()
     }
   }
@@ -122,7 +118,7 @@ export class Camera {
       this.updateCameraPosition()
     }
 
-    else if (this.controls.enabled) {
+    if (typeof(this.controls) !== 'undefined') {
       this.controls.update()
     }
   }
