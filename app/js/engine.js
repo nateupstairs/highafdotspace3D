@@ -60,11 +60,6 @@ export class Engine {
     this.controls.orbit.noPan = true
 
     document.body.appendChild(this.renderer.domElement)
-    // this.stats = new Stats()
-    // this.stats.domElement.style.position = 'absolute'
-    // this.stats.domElement.style.right = '0px'
-    // this.stats.domElement.style.top = '0px'
-    // document.body.appendChild(this.stats.domElement)
     return true
   }
 
@@ -153,10 +148,8 @@ export class Engine {
     let self = this
     let delta = this.clock.getDelta()
 
-    this.stats.begin()
     this.updateChildren(delta)
     this.renderer.render(this.scene, this.camera)
-    this.stats.end()
 
     requestAnimationFrame(function() {
       self.render()
