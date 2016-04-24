@@ -35,9 +35,6 @@ export class Engine {
     this.cameraHolder = new THREE.Object3D()
     this.cameraHolder.add(this.camera)
     this.scene.add(this.cameraHolder)
-
-
-
     this.renderer = new THREE.WebGLRenderer({
       antialias: true
     })
@@ -50,25 +47,14 @@ export class Engine {
     this.controls.deviceOrient.enabled = false
     this.controls.orbit = new THREE.OrbitControls(this.camera, document.body)
     this.controls.orbit.enabled = false
-
     this.controls.orbit.enableDamping = true
     this.controls.orbit.dampingFactor = 0.25
     this.controls.orbit.enableZoom = false
-
     this.controls.orbit.target = new THREE.Vector3(0, 380, 0)
-    //this.controls.target = this.camPar.position;
     this.controls.orbit.rotateSpeed = 0.2
-    // this.controls.orbit.keyPanSpeed = 2;
     this.controls.orbit.zoomSpeed = 0.2
-    // this.controls.orbit.noPan = true;
-    //this.controls.noZoom = true;
     this.controls.orbit.minDistance = 80
     this.controls.orbit.maxDistance = 2000
-
-    // both angle are measured from top in radians (~6.3 in a full circle)
-    // this.controls.orbit.minPolarAngle = (Math.PI*0.2);
-    // this.controls.orbit.maxPolarAngle = (Math.PI*0.5) + 0.1;
-
 
     document.body.appendChild(this.renderer.domElement)
     this.stats = new Stats()

@@ -151,7 +151,6 @@ export class Camera {
     }
     this.progress += delta / this.animationTime
 
-
     if (this.controls.deviceOrient.enabled) {
       this.controls.deviceOrient.update()
     }
@@ -161,7 +160,6 @@ export class Camera {
     if (this.progress < 1) {
       this.updateCameraPosition()
     }
-
   }
 
 }
