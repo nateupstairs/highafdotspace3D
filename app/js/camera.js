@@ -62,10 +62,12 @@ export class Camera {
   }
 
   feedEvent(data) {
-    if (data.data.camera) {
-      this.target = data.data.camera
+    // if (data.data.camera) {
+      var event = data.data.eventName
+
+      this.target =  event
       this.resetMove = true
-    }
+    // }
   }
 
   updateCameraPosition() {
