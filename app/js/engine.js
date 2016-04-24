@@ -34,6 +34,10 @@ export class Engine {
     this.cameraHolder = new THREE.Object3D()
     this.cameraHolder.add(this.camera)
     this.scene.add(this.cameraHolder)
+
+    this.controls = new THREE.DeviceOrientationControls(this.camera)
+    this.controls.enabled = false
+
     this.renderer = new THREE.WebGLRenderer({
       antialias: false
     })

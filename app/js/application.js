@@ -11,7 +11,7 @@ async function start() {
 
   var listener = new Listener()
   var engine = new Engine(assets)
-  var camera = new Camera(engine.camera)
+  var camera = new Camera(engine.camera, engine.controls)
   var ship = new Ship(assets, engine.cameraHolder, engine.floor)
   listener.register(ship)
   listener.register(camera)

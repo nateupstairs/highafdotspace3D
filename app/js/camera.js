@@ -7,8 +7,9 @@ var easing = require('./easing')
 
 export class Camera {
 
-  constructor(camera) {
+  constructor(camera, controls) {
     this.camera = camera
+    this.controls = controls
     this.time = 0
     this.animationTime = 2
     this.progress = 1
@@ -68,6 +69,10 @@ export class Camera {
     }
   }
 
+  setDeviceOrient(value) {
+    this.controls.enabled = value
+  }
+
   updateCameraPosition() {
     let progress = easing.easeInOutCubic(this.progress)
     let target = this.positions[this.target]
@@ -97,6 +102,9 @@ export class Camera {
     this.progress += delta / this.animationTime
     if (this.progress < 1) {
       this.updateCameraPosition()
+    }
+    else if (this.controls.enabled) {
+      this.controls.update()
     }
   }
 
