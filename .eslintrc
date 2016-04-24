@@ -10,8 +10,7 @@
   "globals": {
     "THREE": true,
     "DEBUG": true,
-    "keyboardJS": true,
-    "electronRequire": true,
+    "SPE": true,
     "Stats": true
   },
   "strict": true,

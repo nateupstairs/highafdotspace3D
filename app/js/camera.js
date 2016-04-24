@@ -91,7 +91,7 @@ export class Camera {
       this.disableControls()
     }
     if (e == 'toggle-controls') {
-      if(!this.controlsConnected) {
+      if (!this.controlsConnected) {
         this.enableControls()
         this.controlsConnected = true
       }
@@ -119,7 +119,7 @@ export class Camera {
 
   enableDeviceOrient() {
     if (typeof(this.controls) !== 'undefined') {
-      this.controls.orbit.enabled = false;
+      this.controls.orbit.enabled = false
       this.controls.deviceOrient.connect()
     }
   }
@@ -134,7 +134,7 @@ export class Camera {
 
   disableControls() {
     if (typeof(this.controls) !== 'undefined') {
-      this.controls.orbit.enabled = false;
+      this.controls.orbit.enabled = false
       this.controls.deviceOrient.disconnect()
     }
   }
@@ -161,7 +161,7 @@ export class Camera {
     if (this.progress < 1) {
       this.updateCameraPosition()
     }
-    
+
   }
 
 }

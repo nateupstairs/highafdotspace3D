@@ -1,5 +1,5 @@
-var static = require('node-static')
-var file = new static.Server('./public', {cache: 7200})
+var staticServe = require('node-static')
+var file = new staticServe.Server('./public', {cache: 7200})
 
 require('http').createServer(function(request, response) {
   file.serve(request, response, function(err, res) {

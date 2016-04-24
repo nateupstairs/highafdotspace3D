@@ -21,30 +21,26 @@ export class Ship {
 
     this.shipMeshes = new THREE.Object3D()
     meshGroup.children.forEach(m => {
-
       let matAttrs = {
         color: 0xeedefe,
         shininess: 20
       }
-
-      // console.log(m.name)
+      let material
+      let mesh
 
       if (m.name.indexOf('texA') !== -1) {
         matAttrs.map = this.assets.textures['textures/texA']
       }
-      else if (m.name.indexOf('orange') !== -1){
+      else if (m.name.indexOf('orange') !== -1) {
         matAttrs.color = 0xea8800
         matAttrs.shininess = 5
       }
-      else if (m.name.indexOf('silver') !== -1){
+      else if (m.name.indexOf('silver') !== -1) {
         matAttrs.color = 0xa8b0b9
         matAttrs.shininess = 70
       }
-
-      let material = new THREE.MeshPhongMaterial(matAttrs)
-
-      let mesh = new THREE.Mesh(m.geometry, material)
-
+      material = new THREE.MeshPhongMaterial(matAttrs)
+      mesh = new THREE.Mesh(m.geometry, material)
       this.shipMeshes.add(mesh)
     })
     this.object.add(this.shipMeshes)
@@ -53,24 +49,24 @@ export class Ship {
 
   addParticles() {
     this.exhaustParticles = new SPE.Group({
-  		texture: {
+      texture: {
         value: this.assets.textures['smokeparticle']
       },
       maxParticleCount: 4000
-  	})
+    })
     this.flame = new SPE.Emitter({
       maxAge: {
         value: 0.3
       },
-  		position: {
+      position: {
         value: new THREE.Vector3(0, 0, 0),
         spread: new THREE.Vector3(20, 0, 20)
       },
-  		acceleration: {
+      acceleration: {
         value: new THREE.Vector3(0, 0, 0),
         spread: new THREE.Vector3(0, 0, 0)
       },
-  		velocity: {
+      velocity: {
         value: new THREE.Vector3(0, -400, 0),
         spread: new THREE.Vector3(100, 200, 100)
       },
@@ -83,26 +79,26 @@ export class Ship {
       drag: {
         value: 0.3
       },
-  	  particleCount: 500
-  	})
+      particleCount: 500
+    })
     this.smoke = new SPE.Emitter({
       maxAge: {
         value: 5
       },
-  		position: {
+      position: {
         value: new THREE.Vector3(0, -80, 0),
         spread: new THREE.Vector3(20, 0, 20)
       },
-  		acceleration: {
+      acceleration: {
         value: new THREE.Vector3(0, 0, 0),
         spread: new THREE.Vector3(0, 0, 0)
       },
-  		velocity: {
+      velocity: {
         value: new THREE.Vector3(0, -200, 0),
         spread: new THREE.Vector3(40, 100, 40)
       },
       color: {
-        value: [new THREE.Color( 0x333333 ), new THREE.Color( 0x110000 )]
+        value: [new THREE.Color(0x333333), new THREE.Color(0x110000)]
       },
       size: {
         value: 200
@@ -110,21 +106,21 @@ export class Ship {
       drag: {
         value: 0.2
       },
-  	  particleCount: 150
-  	})
+      particleCount: 150
+    })
     this.flameLeft = new SPE.Emitter({
       maxAge: {
         value: 0.15
       },
-  		position: {
+      position: {
         value: new THREE.Vector3(-35, 42, -13),
         spread: new THREE.Vector3(5, 0, 5)
       },
-  		acceleration: {
+      acceleration: {
         value: new THREE.Vector3(0, 0, 0),
         spread: new THREE.Vector3(0, 0, 0)
       },
-  		velocity: {
+      velocity: {
         value: new THREE.Vector3(0, -200, 0),
         spread: new THREE.Vector3(40, 100, 40)
       },
@@ -137,21 +133,21 @@ export class Ship {
       drag: {
         value: 0.2
       },
-  	  particleCount: 100
-  	})
+      particleCount: 100
+    })
     this.flameRight = new SPE.Emitter({
       maxAge: {
         value: 0.15
       },
-  		position: {
+      position: {
         value: new THREE.Vector3(35, 42, 10),
         spread: new THREE.Vector3(5, 0, 5)
       },
-  		acceleration: {
+      acceleration: {
         value: new THREE.Vector3(0, 0, 0),
         spread: new THREE.Vector3(0, 0, 0)
       },
-  		velocity: {
+      velocity: {
         value: new THREE.Vector3(0, -200, 0),
         spread: new THREE.Vector3(40, 100, 40)
       },
@@ -164,8 +160,8 @@ export class Ship {
       drag: {
         value: 0.3
       },
-  	  particleCount: 100
-  	})
+      particleCount: 100
+    })
     this.exhaustParticles.addEmitter(this.flame)
     this.exhaustParticles.addEmitter(this.smoke)
     this.exhaustParticles.addEmitter(this.flameLeft)
@@ -183,9 +179,6 @@ export class Ship {
       if (this.launched) {
         let yPos = easing.easeOutCubic(this.time - this.launched)
 
-        /*this.shipMeshes.position.setY(yPos)
-        this.exhaustParticles.mesh.position.y = yPos
-        this.cameraHolder.position.setY(yPos)*/
         this.floor.position.setY(-yPos)
       }
       this.exhaustParticles.tick(delta)
