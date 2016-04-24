@@ -55,6 +55,9 @@ export class Engine {
     this.controls.orbit.zoomSpeed = 0.2
     this.controls.orbit.minDistance = 80
     this.controls.orbit.maxDistance = 2000
+    this.controls.orbit.minPolarAngle = (Math.PI*0.2)
+    this.controls.orbit.maxPolarAngle = (Math.PI*0.7)
+    this.controls.orbit.noPan = true
 
     document.body.appendChild(this.renderer.domElement)
     this.stats = new Stats()

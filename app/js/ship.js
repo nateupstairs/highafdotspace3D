@@ -23,7 +23,8 @@ export class Ship {
     meshGroup.children.forEach(m => {
       let matAttrs = {
         color: 0xeedefe,
-        shininess: 20
+        shininess: 20,
+        side: THREE.DoubleSide
       }
       let material
       let mesh
