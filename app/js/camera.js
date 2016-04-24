@@ -79,11 +79,9 @@ export class Camera {
 
   feedEvent(data) {
     let e = data.data.eventName
-
     let position = this.positions[e]
 
     if (position) {
-
       if (position.instant) {
         this.camera.position.copy(position.position)
         this.setCameraLookAt(position.lookAt)
@@ -92,7 +90,6 @@ export class Camera {
         this.target = e
         this.resetMove = true
       }
-
     }
     if (e == 'enable-deviceorient') {
       this.enableDeviceOrient()
@@ -106,10 +103,10 @@ export class Camera {
   }
 
   setCameraLookAt(lookAt) {
-    if (this.controls.orbit.enabled){
+    if (this.controls.orbit.enabled) {
       this.controls.orbit.target = lookAt
     }
-    else if (this.controls.deviceOrient.enabled){
+    else if (this.controls.deviceOrient.enabled) {
       this.controls.deviceOrient.target = lookAt
     }
     else {
