@@ -68,8 +68,11 @@ export class Camera {
       this.target = e
       this.resetMove = true
     }
-    if (e == 'enable-controls') {
-      this.enableControls()
+    if (e == 'enable-deviceorient') {
+      this.enableDeviceOrient()
+    }
+    if (e == 'enable-orbitcontrols') {
+      this.enableOrbitControls()
     }
     if (e == 'disable-controls') {
       this.disableControls()
@@ -91,14 +94,23 @@ export class Camera {
     this.camera.lookAt(this.lookAt)
   }
 
-  enableControls() {
+  enableDeviceOrient() {
     if (typeof(this.controls) !== 'undefined') {
-      this.controls.connect()
+      this.controls.orbit.enabled = false;
+      this.controls.deviceOrient.connect()
+    }
+  }
+
+  enableOrbitControls() {
+    if (typeof(this.controls) !== 'undefined') {
+      this.controls.deviceOrient.disconnect()
+      this.controls.orbit.enabled = true;
     }
   }
 
   disableControls() {
     if (typeof(this.controls) !== 'undefined') {
+      this.controls.orbit.enabled = false;
       this.controls.disconnect()
     }
   }
@@ -114,13 +126,18 @@ export class Camera {
       this.resetMove = false
     }
     this.progress += delta / this.animationTime
-    if (this.progress < 1) {
+
+
+    if (this.controls.deviceOrient.enabled) {
+      this.controls.deviceOrient.update()
+    }
+    else if (this.controls.orbit.enabled) {
+      this.controls.orbit.update()
+    }
+    else if (this.progress < 1) {
       this.updateCameraPosition()
     }
 
-    if (typeof(this.controls) !== 'undefined') {
-      this.controls.update()
-    }
   }
 
 }
