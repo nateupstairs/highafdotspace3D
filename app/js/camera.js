@@ -98,7 +98,7 @@ export class Camera {
       this.enableOrbitControls()
     }
     if (e == 'disable-controls') {
-      this.disableControls()
+      this.disableDeviceOrient()
     }
   }
 
@@ -144,10 +144,10 @@ export class Camera {
     }
   }
 
-  disableControls() {
+  disableDeviceOrient() {
     if (typeof(this.controls) !== 'undefined') {
-      this.controls.orbit.enabled = false
       this.controls.deviceOrient.disconnect()
+      this.controls.orbit.enabled = true
     }
   }
 
