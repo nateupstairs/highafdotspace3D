@@ -58,6 +58,7 @@ export class Camera {
       position: new THREE.Vector3(1000, 0, 0),
       lookAt: new THREE.Vector3(0, 0, 0)
     }
+    DEBUG.controls = controls
   }
 
   feedEvent(data) {
@@ -66,6 +67,12 @@ export class Camera {
     if (this.positions[e]) {
       this.target = e
       this.resetMove = true
+    }
+    if (e == 'enable-controls') {
+      this.enableControls()
+    }
+    if (e == 'disable-controls') {
+      this.disableControls()
     }
   }
 
@@ -88,6 +95,18 @@ export class Camera {
     this.camera.lookAt(this.lookAt)
   }
 
+  enableControls() {
+    if (this.controls.enabled) {
+      this.controls.connect()
+    }
+  }
+
+  disableControls() {
+    if (this.controls.enabled) {
+      this.controls.disconnect()
+    }
+  }
+
   update(delta) {
     this.time += delta
     if (this.resetMove) {
@@ -102,6 +121,7 @@ export class Camera {
     if (this.progress < 1) {
       this.updateCameraPosition()
     }
+
     else if (this.controls.enabled) {
       this.controls.update()
     }

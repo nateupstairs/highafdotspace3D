@@ -191,8 +191,6 @@ export class Ship {
   feedEvent(data) {
     let e = data.data.eventName
 
-    console.log(e)
-
     if (e == 'launch') {
       this.launch()
     }
