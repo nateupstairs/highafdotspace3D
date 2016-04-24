@@ -39,8 +39,7 @@ export class Ship {
   }
 
   feedEvent(data) {
-    console.log('EVENT TEST!')
-    console.log(data)
+
   }
 
 }

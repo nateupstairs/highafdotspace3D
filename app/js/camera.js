@@ -36,8 +36,6 @@ export class Camera {
   }
 
   feedEvent(data) {
-    console.log('EVENT TEST!')
-    console.log(data)
     if (data.data.camera) {
       this.target = data.data.camera
       this.resetMove = true
