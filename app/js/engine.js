@@ -31,6 +31,7 @@ export class Engine {
       antialias: true
     })
     this.setSize()
+    this.addLights()
 
     document.body.appendChild(this.renderer.domElement)
     this.stats = new Stats()
@@ -39,6 +40,18 @@ export class Engine {
     this.stats.domElement.style.top = '0px'
     document.body.appendChild(this.stats.domElement)
     return true
+  }
+
+  addLights() {
+    this.light1 = new THREE.PointLight(0xffffff, 1, 0)
+    this.light1.position.set(200, 700, 50)
+    this.scene.add(this.light1)
+    this.light2 = new THREE.PointLight(0xffffff, 1, 0)
+    this.light2.position.set(-400, 0, 0)
+    this.scene.add(this.light2)
+    this.light3 = new THREE.PointLight(0xffffff, 1, 0)
+    this.light3.position.set(-50, -100, -30)
+    this.scene.add(this.light3)
   }
 
   setSize() {

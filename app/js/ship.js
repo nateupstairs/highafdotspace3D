@@ -17,9 +17,8 @@ export class Ship {
     let meshGroup = this.assets.meshes['deltaIV_v01']
 
     meshGroup.children.forEach(m => {
-      let material = new THREE.MeshBasicMaterial({
-        color: 0xff0000,
-        wireframe: true
+      let material = new THREE.MeshPhongMaterial({
+        color: 0xffffff
       })
       let mesh = new THREE.Mesh(m.geometry, material)
 
