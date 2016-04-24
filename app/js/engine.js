@@ -12,6 +12,7 @@ export class Engine {
     this.config = {
       dimensions: {}
     }
+    this.controls = {}
     this.clock = new THREE.Clock()
     this.updateList = []
     this.entities = []
@@ -35,8 +36,7 @@ export class Engine {
     this.cameraHolder.add(this.camera)
     this.scene.add(this.cameraHolder)
 
-    this.controls = new THREE.DeviceOrientationControls(this.camera)
-    this.controls.enabled = false
+
 
     this.renderer = new THREE.WebGLRenderer({
       antialias: false
@@ -44,6 +44,31 @@ export class Engine {
     this.renderer.setClearColor(0x000000, true);
     this.setSize()
     this.addLights()
+
+    this.controls.deviceOrient = new THREE.DeviceOrientationControls(this.camera)
+    this.controls.deviceOrient.enabled = false
+    this.controls.orbit = new THREE.OrbitControls(this.camera, document.body)
+    this.controls.orbit.enabled = false
+
+    this.controls.orbit.enableDamping = true;
+    this.controls.orbit.dampingFactor = 0.25;
+    this.controls.orbit.enableZoom = false;
+
+    this.controls.orbit.target = new THREE.Vector3(0, 380, 0);
+    //this.controls.target = this.camPar.position;
+    this.controls.orbit.rotateSpeed = 0.2;
+    // this.controls.orbit.keyPanSpeed = 2;
+    this.controls.orbit.zoomSpeed = 0.2;
+    this.controls.orbit.noPan = true;
+    //this.controls.noZoom = true;
+    this.controls.orbit.minDistance = 80;
+    this.controls.orbit.maxDistance = 2000;
+
+    // both angle are measured from top in radians (~6.3 in a full circle)
+    this.controls.orbit.minPolarAngle = (Math.PI*0.2);
+    this.controls.orbit.maxPolarAngle = (Math.PI*0.5) + 0.1;
+    // this.controls.orbit.minAzimuthAngle = -1; // radians
+    // this.controls.orbit.maxAzimuthAngle = 1;
 
     document.body.appendChild(this.renderer.domElement)
     this.stats = new Stats()
@@ -64,7 +89,7 @@ export class Engine {
     this.light3 = new THREE.PointLight(0xffffff, 1, 0)
     this.light3.position.set(0, 0, 0)
     this.scene.add(this.light3)
-    this.light4 = new THREE.SpotLight(0xddddff, 1, 3000, 0.5, 0.1, 0)
+    this.light4 = new THREE.SpotLight(0xddddff, 1, 3000, 0.3, 1, 0)
     this.light4.position.set( 0, 1000, 500 );
     this.scene.add(this.light4)
 
@@ -83,16 +108,16 @@ export class Engine {
   }
 
   addPlane() {
-    let geometry = new THREE.PlaneGeometry(5000, 5000, 20, 20)
-    let material = new THREE.MeshLambertMaterial({
-      color: 0x111111,
-      side: THREE.DoubleSide
-    })
-    let plane = new THREE.Mesh(geometry, material)
+    // let geometry = new THREE.PlaneGeometry(5000, 5000, 20, 20)
+    // let material = new THREE.MeshLambertMaterial({
+    //   color: 0x111111,
+    //   side: THREE.DoubleSide
+    // })
+    // let plane = new THREE.Mesh(geometry, material)
     let meshGroup = this.assets.meshes['launchpad_v01']
 
     this.floor = new THREE.Object3D()
-    plane.rotation.x = 3.14159 / 2
+    //plane.rotation.x = 3.14159 / 2
     meshGroup.children.forEach(m => {
       let material = new THREE.MeshPhongMaterial({
         color: 0x111111
@@ -101,7 +126,7 @@ export class Engine {
 
       this.floor.add(mesh)
     })
-    this.floor.add(plane)
+    // this.floor.add(plane)
     this.scene.add(this.floor)
   }
 
