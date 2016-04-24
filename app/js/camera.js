@@ -7,8 +7,9 @@ var easing = require('./easing')
 
 export class Camera {
 
-  constructor(camera) {
+  constructor(camera, controls) {
     this.camera = camera
+    this.controls = controls
     this.time = 0
     this.animationTime = 2
     this.progress = 1
@@ -57,6 +58,7 @@ export class Camera {
       position: new THREE.Vector3(1000, 0, 0),
       lookAt: new THREE.Vector3(0, 0, 0)
     }
+    DEBUG.controls = controls
   }
 
   feedEvent(data) {
@@ -65,6 +67,12 @@ export class Camera {
     if (this.positions[e]) {
       this.target = e
       this.resetMove = true
+    }
+    if (e == 'enable-controls') {
+      this.enableControls()
+    }
+    if (e == 'disable-controls') {
+      this.disableControls()
     }
   }
 
@@ -83,6 +91,18 @@ export class Camera {
     this.camera.lookAt(this.lookAt)
   }
 
+  enableControls() {
+    if (typeof(this.controls) !== 'undefined') {
+      this.controls.connect()
+    }
+  }
+
+  disableControls() {
+    if (typeof(this.controls) !== 'undefined') {
+      this.controls.disconnect()
+    }
+  }
+
   update(delta) {
     this.time += delta
     if (this.resetMove) {
@@ -96,6 +116,10 @@ export class Camera {
     this.progress += delta / this.animationTime
     if (this.progress < 1) {
       this.updateCameraPosition()
+    }
+
+    if (typeof(this.controls) !== 'undefined') {
+      this.controls.update()
     }
   }
 
