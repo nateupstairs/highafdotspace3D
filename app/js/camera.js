@@ -14,18 +14,44 @@ export class Camera {
     this.progress = 1
     this.lookAt = new THREE.Vector3(0, 0, 0)
     this.positions = {
-      main: {
-        position: new THREE.Vector3(800, 0, 0),
-        lookAt: new THREE.Vector3(0, 400, 0)
+      'M-1': {
+        position: new THREE.Vector3(0, 800, -150),
+        lookAt: new THREE.Vector3(0, 300, 0)
       },
-      top: {
-        position: new THREE.Vector3(500, 400, 0),
+      'M-2': {
+        position: new THREE.Vector3(0, 30, -200),
         lookAt: new THREE.Vector3(0, 600, 0)
       },
-      side: {
-        position: new THREE.Vector3(100, 300, 300),
+      'M-3': {
+        position: new THREE.Vector3(0, 250, -500),
+        lookAt: new THREE.Vector3(0, 250, 0)
+      },
+      'M-4': {
+        position: new THREE.Vector3(0, 150, -150),
+        lookAt: new THREE.Vector3(0, 100, 0)
+      },
+      'M-5': {
+        position: new THREE.Vector3(0, 100, -1000),
         lookAt: new THREE.Vector3(0, 400, 0)
-      }
+      },
+      'M-6': {
+        position: new THREE.Vector3(0, 500, -100),
+        lookAt: new THREE.Vector3(0, 700, 0)
+      },
+      'M-7': {
+        position: new THREE.Vector3(0, 300, -400),
+        lookAt: new THREE.Vector3(0, 150, 0)
+      },
+      'M-8': {
+        position: new THREE.Vector3(70, 800, -10),
+        lookAt: new THREE.Vector3(0, 0, 0)
+      },
+      'M-9': {
+        position: new THREE.Vector3(0, 50, -100),
+        lookAt: new THREE.Vector3(0, 20, 0)
+      },
+
+
     }
     this.target = 'main'
     this.resetMove = false
