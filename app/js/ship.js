@@ -83,7 +83,7 @@ export class Ship {
         spread: new THREE.Vector3(40, 100, 40)
       },
       color: {
-        value: [new THREE.Color('gray'), new THREE.Color('black')]
+        value: [new THREE.Color( 0x333333 ), new THREE.Color( 0x110000 )]
       },
       size: {
         value: 200
