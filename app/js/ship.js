@@ -59,7 +59,7 @@ export class Ship {
       size: {
         value: 40
       },
-  	  particleCount: 2000
+  	  particleCount: 500
   	})
     this.exhaustParticles.addEmitter(this.emitter)
     this.object.add(this.exhaustParticles.mesh)
