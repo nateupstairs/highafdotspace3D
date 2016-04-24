@@ -60,11 +60,11 @@ export class Engine {
     this.controls.orbit.noPan = true
 
     document.body.appendChild(this.renderer.domElement)
-    this.stats = new Stats()
-    this.stats.domElement.style.position = 'absolute'
-    this.stats.domElement.style.right = '0px'
-    this.stats.domElement.style.top = '0px'
-    document.body.appendChild(this.stats.domElement)
+    // this.stats = new Stats()
+    // this.stats.domElement.style.position = 'absolute'
+    // this.stats.domElement.style.right = '0px'
+    // this.stats.domElement.style.top = '0px'
+    // document.body.appendChild(this.stats.domElement)
     return true
   }
 
