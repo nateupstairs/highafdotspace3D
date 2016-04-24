@@ -135,7 +135,7 @@ export class Camera {
   disableControls() {
     if (typeof(this.controls) !== 'undefined') {
       this.controls.orbit.enabled = false;
-      this.controls.disconnect()
+      this.controls.deviceOrient.disconnect()
     }
   }
 
