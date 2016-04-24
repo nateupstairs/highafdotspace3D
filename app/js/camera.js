@@ -49,11 +49,9 @@ export class Camera {
       'M-9': {
         position: new THREE.Vector3(0, 50, -100),
         lookAt: new THREE.Vector3(0, 20, 0)
-      },
-
-
+      }
     }
-    this.target = 'main'
+    this.target = 'M-1'
     this.resetMove = false
     this.startPos = {
       position: new THREE.Vector3(1000, 0, 0),
@@ -62,17 +60,18 @@ export class Camera {
   }
 
   feedEvent(data) {
-    // if (data.data.camera) {
-      var event = data.data.eventName
+    let e = data.data.eventName
 
-      this.target =  event
+    if (this.positions[e]) {
+      this.target = e
       this.resetMove = true
-    // }
+    }
   }
 
   updateCameraPosition() {
     let progress = easing.easeInOutCubic(this.progress)
     let target = this.positions[this.target]
+    console.log(this.target)
     let camDiff = target.position.clone().sub(this.startPos.position)
     let camDiffMult = camDiff.multiplyScalar(progress)
     let camPosition = this.startPos.position.clone().add(camDiffMult)
