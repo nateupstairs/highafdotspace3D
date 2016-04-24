@@ -64,7 +64,7 @@ export class Engine {
   addSphereEnv() {
     let geometry = new THREE.SphereGeometry(5000, 32, 32)
     let material = new THREE.MeshLambertMaterial({
-      color: 0x555555,
+      color: 0x111111,
       side: THREE.BackSide,
       map: this.assets.textures['textures/sphere']
     })
@@ -109,6 +109,10 @@ export class Engine {
     this.renderer.setSize(width, height)
     this.composer.setSize(width, height)
     this.renderer.setPixelRatio(window.devicePixelRatio)
+    this.effectFXAA.uniforms['resolution'].value.set(
+      1 / (window.innerWidth * window.devicePixelRatio),
+      1 / (window.innerHeight * window.devicePixelRatio)
+    )
     return true
   }
 
@@ -136,15 +140,21 @@ export class Engine {
   }
 
   addComposer() {
+    this.renderer.autoClear = false
     this.composer = new THREE.EffectComposer(this.renderer)
     let renderPass = new THREE.RenderPass(this.scene, this.camera)
-    let bloomPass = new THREE.BloomPass(1.5, 5, 0.5, 1024)
-    let copyToScreenPass = new THREE.ShaderPass(THREE.CopyShader)
+    let bloomPass = new THREE.BloomPass(1.0, 20, 4.0, 1024)
 
-    copyToScreenPass.renderToScreen = true
+    this.effectFXAA = new THREE.ShaderPass(THREE.FXAAShader)
+    this.effectFXAA.uniforms['resolution'].value.set(
+      1 / (window.innerWidth * devicePixelRatio),
+      1 / (window.innerHeight * devicePixelRatio)
+    )
+    this.effectFXAA.renderToScreen = true
+
     this.composer.addPass(renderPass)
     this.composer.addPass(bloomPass)
-    this.composer.addPass(copyToScreenPass)
+    this.composer.addPass(this.effectFXAA)
   }
 
   render() {
@@ -154,6 +164,7 @@ export class Engine {
     this.stats.begin()
     this.updateChildren(delta)
     //this.renderer.render(this.scene, this.camera)
+    this.renderer.clear()
     this.composer.render()
     this.stats.end()
 
