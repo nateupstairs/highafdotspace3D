@@ -30,6 +30,9 @@ export class Engine {
       1,
       10000
     )
+    this.cameraHolder = new THREE.Object3D()
+    this.cameraHolder.add(this.camera)
+    this.scene.add(this.cameraHolder)
     this.renderer = new THREE.WebGLRenderer({
       antialias: true
     })
@@ -75,10 +78,9 @@ export class Engine {
       color: 0x111111,
       side: THREE.DoubleSide
     })
-    let plane = new THREE.Mesh(geometry, material)
-    
-    plane.rotation.x = 3.14159 / 2
-    this.scene.add(plane)
+    this.floor = new THREE.Mesh(geometry, material)
+    this.floor.rotation.x = 3.14159 / 2
+    this.scene.add(this.floor)
   }
 
   setSize() {

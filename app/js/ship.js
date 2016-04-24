@@ -6,8 +6,10 @@ var easing = require('./easing')
 
 export class Ship {
 
-  constructor(assets) {
+  constructor(assets, cameraHolder, floor) {
     this.assets = assets
+    this.cameraHolder = cameraHolder
+    this.floor = floor
     this.object = new THREE.Object3D()
     this.time = 0
     this.launched = false
@@ -66,7 +68,7 @@ export class Ship {
   	})
     this.smoke = new SPE.Emitter({
       maxAge: {
-        value: 3
+        value: 5
       },
   		position: {
         value: new THREE.Vector3(0, -80, 0),
@@ -84,12 +86,12 @@ export class Ship {
         value: [new THREE.Color('gray'), new THREE.Color('black')]
       },
       size: {
-        value: 120
+        value: 200
       },
       drag: {
         value: 0.2
       },
-  	  particleCount: 100
+  	  particleCount: 150
   	})
     this.flameLeft = new SPE.Emitter({
       maxAge: {
@@ -162,8 +164,10 @@ export class Ship {
       if (this.launched) {
         let yPos = easing.easeOutCubic(this.time - this.launched)
 
-        this.shipMeshes.position.setY(yPos)
+        /*this.shipMeshes.position.setY(yPos)
         this.exhaustParticles.mesh.position.y = yPos
+        this.cameraHolder.position.setY(yPos)*/
+        this.floor.position.setY(-yPos)
       }
       this.exhaustParticles.tick(delta)
     }
