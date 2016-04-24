@@ -180,8 +180,25 @@ export class Ship {
     })
   }
 
-  feedEvent(data) {
+  unlaunch() {
+    this.launched = false
+    this.exhaustParticles.emitters.forEach(e => {
+      e.activeMultiplier = 0
+    })
+    this.floor.position.setY(0)
+  }
 
+  feedEvent(data) {
+    let e = data.data.eventName
+
+    console.log(e)
+
+    if (e == 'launch') {
+      this.launch()
+    }
+    if (e == 'unlaunch') {
+      this.unlaunch()
+    }
   }
 
 }
