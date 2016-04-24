@@ -6,8 +6,9 @@ var _ = require('lodash')
 
 export class Engine {
 
-  constructor(params) {
+  constructor(assets) {
     DEBUG.engine = this
+    this.assets = assets
     this.config = {
       dimensions: {}
     }
@@ -17,6 +18,8 @@ export class Engine {
     this.init()
     this.render()
     this.bindEvents()
+    this.addSphereEnv()
+    this.addPlane()
   }
 
   init() {
@@ -50,8 +53,32 @@ export class Engine {
     this.light2.position.set(-400, 0, 0)
     this.scene.add(this.light2)
     this.light3 = new THREE.PointLight(0xffffff, 1, 0)
-    this.light3.position.set(-50, -100, -30)
+    this.light3.position.set(0, 0, 0)
     this.scene.add(this.light3)
+  }
+
+  addSphereEnv() {
+    let geometry = new THREE.SphereGeometry(5000, 32, 32)
+    let material = new THREE.MeshLambertMaterial({
+      color: 0x555555,
+      side: THREE.BackSide,
+      map: this.assets.textures['textures/sphere']
+    })
+    let sphere = new THREE.Mesh(geometry, material)
+
+    this.scene.add(sphere)
+  }
+
+  addPlane() {
+    let geometry = new THREE.PlaneGeometry(5000, 5000, 20, 20)
+    let material = new THREE.MeshLambertMaterial({
+      color: 0x111111,
+      side: THREE.DoubleSide
+    })
+    let plane = new THREE.Mesh(geometry, material)
+    plane.rotation.x = 3.14159 / 2
+
+    this.scene.add(plane)
   }
 
   setSize() {
