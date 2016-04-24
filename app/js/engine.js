@@ -76,9 +76,9 @@ export class Engine {
       side: THREE.DoubleSide
     })
     let plane = new THREE.Mesh(geometry, material)
+    
     plane.rotation.x = 3.14159 / 2
-
-    //this.scene.add(plane)
+    this.scene.add(plane)
   }
 
   setSize() {
