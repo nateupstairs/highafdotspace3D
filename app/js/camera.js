@@ -51,15 +51,15 @@ export class Camera {
         position: new THREE.Vector3(0, 50, -100),
         lookAt: new THREE.Vector3(0, 20, 0)
       },
-      'final-1': {
+      'F-1': {
         position: new THREE.Vector3(12, -10, 215),
         lookAt: new THREE.Vector3(-55, 208, -57.6)
       },
-      'final-2': {
+      'F-2': {
         position: new THREE.Vector3(430, 350, 90),
         lookAt: new THREE.Vector3(-45, 335, 15)
       },
-      'final-3': {
+      'F-3': {
         position: new THREE.Vector3(110, 722, 4),
         lookAt: new THREE.Vector3(-50, 408, 60)
       },
