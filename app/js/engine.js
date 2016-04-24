@@ -78,8 +78,20 @@ export class Engine {
       color: 0x111111,
       side: THREE.DoubleSide
     })
-    this.floor = new THREE.Mesh(geometry, material)
-    this.floor.rotation.x = 3.14159 / 2
+    let plane = new THREE.Mesh(geometry, material)
+    let meshGroup = this.assets.meshes['launchpad_v01']
+
+    this.floor = new THREE.Object3D()
+    plane.rotation.x = 3.14159 / 2
+    meshGroup.children.forEach(m => {
+      let material = new THREE.MeshPhongMaterial({
+        color: 0x111111
+      })
+      let mesh = new THREE.Mesh(m.geometry, material)
+
+      this.floor.add(mesh)
+    })
+    this.floor.add(plane)
     this.scene.add(this.floor)
   }
 
