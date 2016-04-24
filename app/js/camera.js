@@ -71,7 +71,6 @@ export class Camera {
   updateCameraPosition() {
     let progress = easing.easeInOutCubic(this.progress)
     let target = this.positions[this.target]
-    console.log(this.target)
     let camDiff = target.position.clone().sub(this.startPos.position)
     let camDiffMult = camDiff.multiplyScalar(progress)
     let camPosition = this.startPos.position.clone().add(camDiffMult)

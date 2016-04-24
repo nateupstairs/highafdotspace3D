@@ -34,8 +34,9 @@ export class Engine {
     this.cameraHolder.add(this.camera)
     this.scene.add(this.cameraHolder)
     this.renderer = new THREE.WebGLRenderer({
-      antialias: true
+      antialias: false
     })
+    this.addComposer()
     this.setSize()
     this.addLights()
 
@@ -106,6 +107,7 @@ export class Engine {
     this.camera.aspect = width / height
     this.camera.updateProjectionMatrix()
     this.renderer.setSize(width, height)
+    this.composer.setSize(width, height)
     this.renderer.setPixelRatio(window.devicePixelRatio)
     return true
   }
@@ -133,13 +135,26 @@ export class Engine {
     }, false)
   }
 
+  addComposer() {
+    this.composer = new THREE.EffectComposer(this.renderer)
+    let renderPass = new THREE.RenderPass(this.scene, this.camera)
+    let bloomPass = new THREE.BloomPass(1.5, 5, 0.5, 1024)
+    let copyToScreenPass = new THREE.ShaderPass(THREE.CopyShader)
+
+    copyToScreenPass.renderToScreen = true
+    this.composer.addPass(renderPass)
+    this.composer.addPass(bloomPass)
+    this.composer.addPass(copyToScreenPass)
+  }
+
   render() {
     let self = this
     let delta = this.clock.getDelta()
 
     this.stats.begin()
     this.updateChildren(delta)
-    this.renderer.render(this.scene, this.camera)
+    //this.renderer.render(this.scene, this.camera)
+    this.composer.render()
     this.stats.end()
 
     requestAnimationFrame(function() {
