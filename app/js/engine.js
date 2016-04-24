@@ -24,6 +24,7 @@ export class Engine {
 
   init() {
     this.scene = new THREE.Scene()
+    this.scene.fog = new THREE.Fog( 0x000000, 1000, 3000 );
     this.camera = new THREE.PerspectiveCamera(
       75,
       window.innerWidth / window.innerHeight,
@@ -34,8 +35,9 @@ export class Engine {
     this.cameraHolder.add(this.camera)
     this.scene.add(this.cameraHolder)
     this.renderer = new THREE.WebGLRenderer({
-      antialias: true
+      antialias: false
     })
+    this.renderer.setClearColor(0x000000, true);
     this.setSize()
     this.addLights()
 
@@ -49,8 +51,8 @@ export class Engine {
   }
 
   addLights() {
-    this.light1 = new THREE.PointLight(0xffffff, 1, 0)
-    this.light1.position.set(200, 700, 50)
+    this.light1 = new THREE.PointLight(0xffffff, 0.6, 0)
+    this.light1.position.set(200, 800, 50)
     this.scene.add(this.light1)
     this.light2 = new THREE.PointLight(0xffffff, 1, 0)
     this.light2.position.set(-400, 0, 0)
@@ -58,6 +60,10 @@ export class Engine {
     this.light3 = new THREE.PointLight(0xffffff, 1, 0)
     this.light3.position.set(0, 0, 0)
     this.scene.add(this.light3)
+    this.light4 = new THREE.SpotLight(0xddddff, 1, 3000, 0.5, 0.1, 0)
+    this.light4.position.set( 0, 1000, 500 );
+    this.scene.add(this.light4)
+
   }
 
   addSphereEnv() {
