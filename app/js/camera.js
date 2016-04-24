@@ -66,6 +66,7 @@ export class Camera {
     }
     this.target = 'M-1'
     this.resetMove = false
+    this.controlsConnected = false
     this.startPos = {
       position: new THREE.Vector3(1000, 0, 0),
       lookAt: new THREE.Vector3(0, 0, 0)
@@ -88,6 +89,16 @@ export class Camera {
     }
     if (e == 'disable-controls') {
       this.disableControls()
+    }
+    if (e == 'toggle-controls') {
+      if(!this.controlsConnected) {
+        this.enableControls()
+        this.controlsConnected = true
+      }
+      else {
+        this.disableControls()
+        this.controlsConnected = false
+      }
     }
   }
 
